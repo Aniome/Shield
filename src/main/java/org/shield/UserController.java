@@ -3,13 +3,16 @@ package org.shield;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class MyController {
-
-    @GetMapping("/hello")
+@RequestMapping("/profile")
+public class UserController {
+    @GetMapping("/")
     public String myPage() {
-        return "hello";
+        return "profile";
+    }
+    @GetMapping("/mine")
+    public String mine() {
+        return "mine";
     }
 }
