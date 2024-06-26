@@ -1,9 +1,7 @@
-package org.shield;
+package org.shield.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,33 +10,24 @@ import java.util.HashMap;
 
 @NoArgsConstructor
 @Entity
-@Table
 public class Block {
     @Getter
     @Setter
     @Id
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "Timestamp")
     Long timestamp;
 
-    @Column(name = "DateOfManufacture")
     Date dateOfManufacture;
 
-    @Column(name = "Proof")
     Long proof;
 
-    @Column(name = "Manufacturer")
     String manufacturer;
 
-    @Column(name = "NameOfProduct")
     String nameOfProduct;
 
-    @Column(name = "PreviousHash")
     String previousHash;
 
-    @Column(name = "ProductDescription")
     String productDescription;
 
 
