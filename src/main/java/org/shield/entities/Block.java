@@ -9,10 +9,10 @@ import java.util.Date;
 import java.util.HashMap;
 
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Block {
-    @Getter
-    @Setter
     @Id
     private Long id;
 

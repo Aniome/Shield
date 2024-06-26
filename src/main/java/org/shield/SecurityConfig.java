@@ -32,7 +32,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/helloAll").permitAll()
                         .requestMatchers("/profile/").hasRole("user")
                         .requestMatchers("/profile/mine").hasRole("user")
-                        .requestMatchers("/hello-world").hasRole("user"))
+                        .requestMatchers("/hello-world").hasRole("user")
+                        .requestMatchers("/profile/chain").hasRole("user"))
                 .formLogin(form -> form.defaultSuccessUrl("/profile/", true));
         return http.build();
     }
