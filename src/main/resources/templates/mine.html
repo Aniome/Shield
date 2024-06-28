@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Mine</title>
 </head>
 <body>
-<form th:method="POST">
+<form th:method="POST" th:action="@{/profile}" th:object="${block}">
     <label>Производитель: </label>
     <input>
     <br>
@@ -22,3 +22,18 @@
 </form>
 </body>
 </html>
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <label for="name">Enter name: </label>
+    <input id="name" type="text" th:field="*{name}">
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br />
+    <label for="age">Enter age: </label>
+    <input id="age" type="text" th:field="*{age}">
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+    <br />
+    <label for="email">Enter email: </label>
+    <input id="email" type="text" th:field="*{email}">
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+    <br />
+    <input type="submit" value="Create!"/>
+</form>

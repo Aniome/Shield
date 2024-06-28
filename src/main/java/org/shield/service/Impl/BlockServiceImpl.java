@@ -17,4 +17,10 @@ public class BlockServiceImpl implements BlockService {
     public List<Block> getBlocks() {
         return blockRepository.findAll();
     }
+
+    @Override
+    public void addBlock(Block block) {
+        blockRepository.save(block);
+    }
+
 }
