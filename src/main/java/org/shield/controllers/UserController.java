@@ -1,9 +1,11 @@
 package org.shield.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.shield.entities.Block;
 import org.shield.service.Impl.BlockServiceImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,7 @@ public class UserController {
     RESTController restController;
     BlockServiceImpl blockServiceImpl;
 
-    @GetMapping("/")
+    @GetMapping()
     public String profile() {
         return "profile";
     }
@@ -28,16 +30,18 @@ public class UserController {
     }
 
     @GetMapping("/mine")
-    public String mine() {
+    public String mine(Model model) {
+        model.addAttribute("block", new Block());
         return "mine";
     }
 
     @PostMapping()
-    public String Create(@ModelAttribute("block") Block block,
+    public String Create(@ModelAttribute("block") @Valid Block block,
                          BindingResult bindingResult){
         if (bindingResult.hasErrors())
-            return "people/new";
-        blockServiceImpl.addBlock(block);
-        return "redirect:/profile/";
+            return "mine";
+        System.out.println();
+        //blockServiceImpl.addBlock(block);
+        return "redirect:/profile";
     }
 }

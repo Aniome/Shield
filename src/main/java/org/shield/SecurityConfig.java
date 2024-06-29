@@ -30,11 +30,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/helloAll").permitAll()
-                        .requestMatchers("/profile/").hasRole("user")
+                        .requestMatchers("/profile").hasRole("user")
                         .requestMatchers("/profile/mine").hasRole("user")
-                        .requestMatchers("/hello-world").hasRole("user")
-                        .requestMatchers("/profile/chain").hasRole("user"))
-                .formLogin(form -> form.defaultSuccessUrl("/profile/", true));
+                        .requestMatchers("/profile/chain").hasRole("user")
+                        .requestMatchers("/hello-world").hasRole("user"))
+                .formLogin(form -> form.defaultSuccessUrl("/profile", true));
         return http.build();
     }
 //
