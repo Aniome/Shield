@@ -1,7 +1,7 @@
 package org.shield.controllers;
 
 import lombok.AllArgsConstructor;
-import org.shield.entities.Block;
+import org.shield.model.Block;
 import org.shield.service.Impl.BlockServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

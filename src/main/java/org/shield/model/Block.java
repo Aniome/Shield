@@ -1,4 +1,4 @@
-package org.shield.entities;
+package org.shield.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -22,6 +23,7 @@ public class Block {
     Long timestamp;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date dateOfManufacture;
 
     Long proof;
@@ -33,20 +35,8 @@ public class Block {
     @Size(min = 2, max = 30, message = "nameOfProduct should be between 2 and 30 characters")
     String nameOfProduct;
 
-    String previousHash;
+    Integer previousHash;
 
     @Size(min = 2, max = 30, message = "productDescription should be between 2 and 30 characters")
     String productDescription;
-
-
-    public Block(Long index, Long timestamp, Long proof, Date dateOfManufacture, HashMap<String, String> info){
-        this.id = index;
-        this.timestamp = timestamp;
-        this.proof = proof;
-        previousHash = info.get("previousHash");
-        this.dateOfManufacture = dateOfManufacture;
-        manufacturer = info.get("manufacturer");
-        nameOfProduct = info.get("nameOfProduct");
-        productDescription = info.get("productDescription");
-    }
 }

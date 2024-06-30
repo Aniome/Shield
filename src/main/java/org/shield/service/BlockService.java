@@ -1,6 +1,6 @@
 package org.shield.service;
 
-import org.shield.entities.Block;
+import org.shield.model.Block;
 import java.util.List;
 
 public interface BlockService {

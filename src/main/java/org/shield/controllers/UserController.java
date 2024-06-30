@@ -2,7 +2,7 @@ package org.shield.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.shield.entities.Block;
+import org.shield.model.Block;
 import org.shield.service.Impl.BlockServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +40,7 @@ public class UserController {
                          BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "mine";
-        System.out.println();
+        int a = 1;
         //blockServiceImpl.addBlock(block);
         return "redirect:/profile";
     }

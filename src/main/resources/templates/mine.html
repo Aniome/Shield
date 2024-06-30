@@ -14,8 +14,14 @@
     <input id="nameOfProduct" type="text" th:field="*{nameOfProduct}">
     <div style="color:red" th:if="${#fields.hasErrors('nameOfProduct')}" th:errors="*{nameOfProduct}">nameOfProduct error</div>
     <br>
-
-
+    <label for="dateOfManufacture">Дата создания</label>
+    <input type="date" id="dateOfManufacture" th:field="*{dateOfManufacture}">
+    <div style="color:red" th:if="${#fields.hasErrors('dateOfManufacture')}" th:errors="*{dateOfManufacture}">dateOfManufacture error</div>
+    <br>
+    <label>Описание продукта</label>
+    <input id="productDescription" th:field="*{productDescription}">
+    <div style="color:red" th:if="${#fields.hasErrors('productDescription')}" th:errors="*{productDescription}">productDescription error</div>
+    <br>
     <input type="submit" value="Создать"/>
 </form>
 </body>
