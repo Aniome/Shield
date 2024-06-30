@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 @NoArgsConstructor
 @Getter
@@ -35,7 +34,7 @@ public class Block {
     @Size(min = 2, max = 30, message = "nameOfProduct should be between 2 and 30 characters")
     String nameOfProduct;
 
-    Integer previousHash;
+    Long previousHash;
 
     @Size(min = 2, max = 30, message = "productDescription should be between 2 and 30 characters")
     String productDescription;

@@ -40,8 +40,7 @@ public class UserController {
                          BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "mine";
-        int a = 1;
-        //blockServiceImpl.addBlock(block);
+        blockServiceImpl.addBlock(block);
         return "redirect:/profile";
     }
 }
