@@ -1,9 +1,9 @@
 package org.shield.service;
 
+import lombok.AllArgsConstructor;
 import org.shield.config.ShieldUserDetails;
 import org.shield.entities.User;
 import org.shield.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,8 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ShieldUserDetailService implements UserDetailsService {
-    @Autowired
+
     private UserRepository userRepository;
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class ShieldUserDetails implements UserDetails {
-    private User user;
+    private final User user;
 
     public ShieldUserDetails(User user) {
         this.user = user;
