@@ -1,4 +1,4 @@
-package org.shield.model;
+package org.shield.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

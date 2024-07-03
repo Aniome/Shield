@@ -2,7 +2,7 @@ package org.shield.service.Impl;
 
 import lombok.AllArgsConstructor;
 import org.apache.commons.codec.binary.Hex;
-import org.shield.model.Block;
+import org.shield.entities.Block;
 import org.shield.repository.BlockRepository;
 import org.shield.service.BlockService;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,10 @@ public class BlockServiceImpl implements BlockService {
         Long lastProof = 0L;
         if (i == 0){
             block.setPreviousHash(0L);
-            lastProof = 0L;
+        } else {
+            Block prevBlock = blockRepository.getOne(i-1);
+            block.setPreviousHash(prevBlock.getPreviousHash());
+            lastProof = block.getProof();
         }
         block.setProof(proofOfWork(lastProof));
         blockRepository.save(block);

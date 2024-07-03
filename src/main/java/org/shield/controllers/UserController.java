@@ -2,7 +2,7 @@ package org.shield.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.shield.model.Block;
+import org.shield.entities.Block;
 import org.shield.service.Impl.BlockServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,20 +26,20 @@ public class UserController {
     @ResponseBody
     @GetMapping("/chain")
     public List<Block> showBlockChain() {
-        return restController.hello();
+        return restController.getChain();
     }
 
-    @GetMapping("/mine")
+    @GetMapping("/create")
     public String mine(Model model) {
         model.addAttribute("block", new Block());
-        return "mine";
+        return "create";
     }
 
     @PostMapping()
     public String Create(@ModelAttribute("block") @Valid Block block,
                          BindingResult bindingResult){
         if (bindingResult.hasErrors())
-            return "mine";
+            return "create";
         blockServiceImpl.addBlock(block);
         return "redirect:/profile";
     }
