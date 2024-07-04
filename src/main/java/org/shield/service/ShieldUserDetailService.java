@@ -1,17 +1,18 @@
 package org.shield.service;
 
-import lombok.AllArgsConstructor;
 import org.shield.config.ShieldUserDetails;
 import org.shield.entities.User;
 import org.shield.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class ShieldUserDetailService implements UserDetailsService {
 
     private UserRepository userRepository;
@@ -19,6 +20,12 @@ public class ShieldUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
-        return user.map(ShieldUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+        var t = user.map(ShieldUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+        return t;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 }

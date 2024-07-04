@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.codec.binary.Hex;
 import org.shield.entities.Block;
 import org.shield.repository.BlockRepository;
-import org.shield.service.BlockService;
+import org.shield.service.interfaces.BlockService;
 import org.springframework.stereotype.Service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

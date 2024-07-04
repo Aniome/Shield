@@ -1,4 +1,4 @@
-package org.shield.service;
+package org.shield.service.interfaces;
 
 import org.shield.entities.User;
 

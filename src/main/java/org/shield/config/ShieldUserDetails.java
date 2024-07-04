@@ -4,8 +4,9 @@ import org.shield.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShieldUserDetails implements UserDetails {
     private final User user;
@@ -16,7 +17,8 @@ public class ShieldUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(user.getRole()));
+        //return List.of(new SimpleGrantedAuthority(user.getRole()));
+        return Arrays.stream(user.getRole().split(", ")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override
@@ -33,7 +35,8 @@ public class ShieldUserDetails implements UserDetails {
     //true не истек, false учетная запись недействительная
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        var t = UserDetails.super.isAccountNonExpired();
+        return t;
     }
 
 
@@ -41,20 +44,23 @@ public class ShieldUserDetails implements UserDetails {
     //true не заблокирован, false заблокирован
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        var t = UserDetails.super.isAccountNonLocked();
+        return t;
     }
 
     //Указывает истек ли срок действия пароля
     //true учетные данные действительные, false больше не действительны
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        var t = UserDetails.super.isCredentialsNonExpired();
+        return t;
     }
 
     //Включен пользователь или нет
     //true включен, false не включен
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        var t = UserDetails.super.isEnabled();
+        return t;
     }
 }

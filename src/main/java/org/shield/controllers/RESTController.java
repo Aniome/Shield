@@ -31,9 +31,4 @@ public class RESTController {
         userService.saveUser(user);
         return "user saved";
     }
-
-    @GetMapping("/helloAll")
-    public String helloAll() {
-        return "Hello World everybody";
-    }
 }

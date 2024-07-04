@@ -1,4 +1,4 @@
-package org.shield.service;
+package org.shield.service.interfaces;
 
 import org.shield.entities.Block;
 import java.util.List;
