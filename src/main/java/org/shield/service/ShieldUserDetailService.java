@@ -4,13 +4,11 @@ import org.shield.config.ShieldUserDetails;
 import org.shield.entities.User;
 import org.shield.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ShieldUserDetailService implements UserDetailsService {
@@ -20,8 +18,7 @@ public class ShieldUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
-        var t = user.map(ShieldUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
-        return t;
+        return user.map(ShieldUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
     }
 
     @Autowired
