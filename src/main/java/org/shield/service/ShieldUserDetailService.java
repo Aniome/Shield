@@ -1,13 +1,14 @@
 package org.shield.service;
 
-import org.shield.config.ShieldUserDetails;
-import org.shield.entities.User;
+import org.shield.entities.UserBlockchain;
 import org.shield.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,8 +18,18 @@ public class ShieldUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
-        return user.map(ShieldUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+        Optional<UserBlockchain> user = userRepository.findByUsername(username);
+        if (user.isPresent()) {
+            UserBlockchain userObj = user.get();
+            List<String> t = userRepository.findAllByRoleAndUsername(userObj.getUsername());
+            return User.builder()
+                    .username(userObj.getUsername())
+                    .password(userObj.getPassword())
+                    .roles(userObj.getRole())
+                    .build();
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
     }
 
     @Autowired

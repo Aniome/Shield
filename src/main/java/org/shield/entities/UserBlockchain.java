@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class UserBlockchain {
     @Id
     private Long id;
     private String username;

@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.shield.entities.Block;
 import org.shield.service.Impl.BlockServiceImpl;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +28,6 @@ public class UserController {
         return restController.getChain();
     }
 
-    @PreAuthorize("hasAuthority('user')")
     @GetMapping("/create")
     public String mine(Model model) {
         model.addAttribute("block", new Block());

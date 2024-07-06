@@ -1,7 +1,7 @@
 package org.shield.service.interfaces;
 
-import org.shield.entities.User;
+import org.shield.entities.UserBlockchain;
 
 public interface UserService {
-    void saveUser(User user);
+    void saveUser(UserBlockchain user);
 }

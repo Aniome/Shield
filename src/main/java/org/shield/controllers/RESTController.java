@@ -2,7 +2,7 @@ package org.shield.controllers;
 
 import lombok.AllArgsConstructor;
 import org.shield.entities.Block;
-import org.shield.entities.User;
+import org.shield.entities.UserBlockchain;
 import org.shield.service.Impl.BlockServiceImpl;
 import org.shield.service.Impl.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,7 @@ public class RESTController {
     }
 
     @PostMapping("/new-user")
-    public String newUser(@RequestBody User user) {
+    public String newUser(@RequestBody UserBlockchain user) {
         userService.saveUser(user);
         return "user saved";
     }

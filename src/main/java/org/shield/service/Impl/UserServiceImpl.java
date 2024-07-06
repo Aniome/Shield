@@ -1,7 +1,7 @@
 package org.shield.service.Impl;
 
 import lombok.AllArgsConstructor;
-import org.shield.entities.User;
+import org.shield.entities.UserBlockchain;
 import org.shield.repository.UserRepository;
 import org.shield.service.interfaces.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(UserBlockchain user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
