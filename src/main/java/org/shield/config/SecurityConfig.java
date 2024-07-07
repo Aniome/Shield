@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,11 +29,14 @@ public class SecurityConfig {
                         .requestMatchers("/api/new-user").permitAll()
                         .requestMatchers("/api/chain").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
-                        .requestMatchers("/actuator/beans").permitAll())
-                .formLogin(form -> form.defaultSuccessUrl("/profile", true));
+                                .requestMatchers("/resources/**", "/static/**").permitAll()
+                        //.requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/**").permitAll()
+                )
+                .formLogin(form -> form.loginPage("/").permitAll().defaultSuccessUrl("/profile", true));
         return http.build();
 
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
