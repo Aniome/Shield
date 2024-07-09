@@ -22,23 +22,25 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/profile").hasRole("USER")
-                        .requestMatchers("/profile/chain").hasRole("USER")
-                        .requestMatchers("/profile/create").hasRole("USER")
+                        .requestMatchers("/profile/**").hasRole("USER")
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/api/mine").hasRole("USER")
                         .requestMatchers("/api/new-user").permitAll()
-                        .requestMatchers("/api/chain").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/api/chain").hasRole("USER")
+                        //service endpoints
                         .requestMatchers("**.js").permitAll()
                         .requestMatchers("**.css").permitAll()
                         .requestMatchers("**.ico").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .formLogin(form -> form.loginPage("/").permitAll()
-                        .defaultSuccessUrl("/profile", true));
+                        .defaultSuccessUrl("/admin", true));
         return http.build();
 
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
