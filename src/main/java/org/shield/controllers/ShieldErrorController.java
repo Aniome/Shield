@@ -21,8 +21,7 @@ public class ShieldErrorController implements ErrorController {
             } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "errors/403";
             } else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                //500
-                return "errors/error";
+                return "errors/500";
             }
         }
         model.addAttribute("error", "Error - unknown error");
