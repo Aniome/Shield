@@ -22,6 +22,7 @@ public class ShieldUserDetailService implements UserDetailsService {
         if (user.isPresent()) {
             UserBlockchain userObj = user.get();
             List<String> t = userRepository.findAllByRoleAndUsername(userObj.getUsername());
+            System.out.println(t);
             return User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())

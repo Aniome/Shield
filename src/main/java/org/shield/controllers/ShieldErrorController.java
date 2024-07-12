@@ -22,9 +22,11 @@ public class ShieldErrorController implements ErrorController {
                 return "errors/403";
             } else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "errors/500";
+            } else {
+                model.addAttribute("error", "Error - " + statusCode);
+                return "errors/error";
             }
         }
-        model.addAttribute("error", "Error - unknown error");
         return "errors/error";
     }
 }
