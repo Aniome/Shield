@@ -37,7 +37,8 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .formLogin(form -> form.loginPage("/").permitAll()
-                        .defaultSuccessUrl("/admin", true));
+                        .successHandler(new AuthenticationSuccessHandler()));
+        //.defaultSuccessUrl("/admin", true)
         return http.build();
 
     }

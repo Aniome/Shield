@@ -15,19 +15,21 @@ import java.util.Optional;
 public class ShieldUserDetailService implements UserDetailsService {
 
     private UserRepository userRepository;
+    public UserDetails currentUser;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserBlockchain> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             UserBlockchain userObj = user.get();
-            List<String> t = userRepository.findAllByRoleAndUsername(userObj.getUsername());
-            System.out.println(t);
-            return User.builder()
+            //List<String> t = userRepository.findAllByRoleAndUsername(userObj.getUsername());
+
+            currentUser = User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
                     .roles(userObj.getRole())
                     .build();
+            return currentUser;
         } else {
             throw new UsernameNotFoundException(username);
         }
