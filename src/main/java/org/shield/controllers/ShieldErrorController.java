@@ -22,6 +22,8 @@ public class ShieldErrorController implements ErrorController {
                 return "errors/403";
             } else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "errors/500";
+            } else if (statusCode == HttpStatus.REQUEST_TIMEOUT.value()) {
+                return "errors/408";
             } else {
                 model.addAttribute("error", "Error - " + statusCode);
                 return "errors/error";
