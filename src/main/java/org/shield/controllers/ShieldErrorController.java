@@ -29,6 +29,7 @@ public class ShieldErrorController implements ErrorController {
                 return "errors/error";
             }
         }
+        model.addAttribute("error", "Unknown Error");
         return "errors/error";
     }
 }
