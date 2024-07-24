@@ -18,8 +18,6 @@ public class UserController {
     RESTController restController;
     BlockServiceImpl blockServiceImpl;
 
-
-
     @GetMapping()
     public String profile() {
         return "profile";

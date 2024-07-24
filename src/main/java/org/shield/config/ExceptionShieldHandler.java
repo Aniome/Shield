@@ -15,7 +15,7 @@ public class ExceptionShieldHandler {
         if (e instanceof NoResourceFoundException) {
             return "errors/404";
         }
-        model.addAttribute("error", "Error - " +e.getMessage());
+        model.addAttribute("error", "Error - " + e.getMessage());
         return "errors/error";
     }
 }

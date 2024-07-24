@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserBlockchain, Long> {
     Optional<UserBlockchain> findByUsername(String username);
-    @Query(value = "SELECT role FROM users WHERE name=users.username", nativeQuery = true)
+    @Query(value = "SELECT role FROM users WHERE :name=users.username", nativeQuery = true)
     List<String> findAllByRoleAndUsername(@Param("name") String name);
 }

@@ -24,8 +24,8 @@ public class SecurityConfig {
                         .requestMatchers("/profile").hasRole("USER")
                         .requestMatchers("/profile/**").hasRole("USER")
                         .requestMatchers("/admin").hasRole("ADMIN")
-                        .requestMatchers("/api/mine").hasRole("USER")
                         .requestMatchers("/api/new-user").permitAll()
+                        .requestMatchers("/api/mine").hasRole("USER")
                         .requestMatchers("/api/chain").hasRole("USER")
                         //service endpoints
                         .requestMatchers("**.js").permitAll()
@@ -38,7 +38,6 @@ public class SecurityConfig {
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .formLogin(form -> form.loginPage("/").permitAll()
                         .successHandler(new AuthenticationSuccessHandler()));
-        //.defaultSuccessUrl("/admin", true)
         return http.build();
 
     }
