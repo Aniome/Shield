@@ -5,6 +5,8 @@ import org.shield.entities.Block;
 import org.shield.entities.UserBlockchain;
 import org.shield.service.Impl.BlockServiceImpl;
 import org.shield.service.Impl.UserServiceImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class RESTController {
     }
 
     @PostMapping("/new-user")
-    public String newUser(@RequestBody UserBlockchain user) {
+    public ResponseEntity<String> newUser(@RequestBody UserBlockchain user) {
         userService.saveUser(user);
-        return "user saved";
+        return ResponseEntity.status(HttpStatus.OK).body("user saved");
     }
 }

@@ -27,19 +27,19 @@ public class SecurityConfig {
                         .requestMatchers("/api/new-user").permitAll()
                         .requestMatchers("/api/mine").hasRole("USER")
                         .requestMatchers("/api/chain").hasRole("USER")
+                        .requestMatchers("/register").permitAll()
                         //service endpoints
                         .requestMatchers("**.js").permitAll()
                         .requestMatchers("**.css").permitAll()
                         .requestMatchers("**.ico").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .formLogin(form -> form.loginPage("/").permitAll()
                         .successHandler(new AuthenticationSuccessHandler()));
         return http.build();
-
     }
 
     @Bean

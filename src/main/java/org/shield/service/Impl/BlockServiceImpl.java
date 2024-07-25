@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.codec.binary.Hex;
 import org.shield.entities.Block;
 import org.shield.repository.BlockRepository;
+import org.shield.service.GenerateId;
 import org.shield.service.interfaces.BlockService;
 import org.springframework.stereotype.Service;
 import java.security.MessageDigest;
@@ -23,12 +24,8 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public void addBlock(Block block) {
-        Long i;
-        for (i = 0L; i < Long.MAX_VALUE; i++) {
-            if (!blockRepository.existsById(i)){
-                break;
-            }
-        }
+        GenerateId<Block> generateId = new GenerateId<>();
+        Long i = generateId.getId(blockRepository);
         block.setId(i);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         block.setTimestamp(timestamp.getTime());
