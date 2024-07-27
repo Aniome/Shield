@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,15 +21,16 @@ public class ShieldUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserBlockchain> user = userRepository.findByUsername(username);
-        if (user.isPresent()) {
-            UserBlockchain userObj = user.get();
-            //List<String> t = userRepository.findAllByRoleAndUsername(userObj.getUsername());
+        List<UserBlockchain> user = userRepository.findByUsername(username);
+        if (!user.isEmpty()) {
+            UserBlockchain userObj = user.getFirst();
+            List<String> listRoles = user.stream().map(UserBlockchain::getRole).toList();
+            String[] arrayRoles = listRoles.toArray(new String[0]);
 
             currentUser = User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
-                    .roles(userObj.getRole())
+                    .roles(arrayRoles)
                     .build();
             return currentUser;
         } else {
