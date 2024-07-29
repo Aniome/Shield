@@ -1,18 +1,15 @@
 package org.shield.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.shield.entities.UserBlockchain;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.shield.service.Register;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class MainController {
@@ -30,25 +27,19 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") UserBlockchain user) throws JsonProcessingException {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        //converting object in JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(user);
-
-        //create HTTP-request
-        HttpEntity<String> request = new HttpEntity<>(jsonString, headers);
-
-        String url = "http://localhost:8080/api/new-user";
-
-        //send post request and get response
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-
-        String result = response.getStatusCode().toString();
-
+    public String register(@ModelAttribute("user") UserBlockchain user, Model model) {
+        try {
+            HttpStatusCode response = Register.register(user);
+            if (response == HttpStatus.OK){
+                return "login/success-registration";
+            } else {
+                String error = "Во время регистрации произошла ошибка " + response;
+                model.addAttribute("error", error);
+                return "login/failure-registration";
+            }
+        } catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
         return "login/success-registration";
     }
 
