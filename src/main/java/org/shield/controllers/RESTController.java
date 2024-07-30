@@ -30,7 +30,13 @@ public class RESTController {
 
     @PostMapping("/new-user")
     public ResponseEntity<String> newUser(@RequestBody UserBlockchain user) {
-        userService.saveUser(user);
-        return ResponseEntity.status(HttpStatus.OK).body("user saved");
+        try {
+            if (userService.saveUser(user)){
+                return ResponseEntity.status(HttpStatus.CREATED).body("user saved");
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user not saved");
     }
 }

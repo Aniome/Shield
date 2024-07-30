@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.shield.validation.ValidateUsername;
 
 @NoArgsConstructor
 @Getter
@@ -15,6 +16,7 @@ import lombok.Setter;
 public class UserBlockchain {
     @Id
     private Long id;
+    @ValidateUsername
     private String username;
     private String password;
     private String email;

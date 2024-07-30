@@ -24,14 +24,13 @@ public class Register {
 
         String url = "http://localhost:8080/api/new-user";
 
-        ResponseEntity<String> response = null;
-        //send post request and get response
         try {
-            response = restTemplate.postForEntity(url, request, String.class);
+            //send post request and get response
+            ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
             return response.getStatusCode();
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             e.printStackTrace();
+            return HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 }

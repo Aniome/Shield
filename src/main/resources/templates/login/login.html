@@ -9,37 +9,36 @@
     <script th:src="@{/js/login.js}"></script>
 </head>
 <body>
-<div class="container" id="container">
+<div id="container" th:class="${container_class}">
     <div class="form-container sign-up-container">
-        <form action="/register" method="POST">
-            <h1>Create Account</h1>
-            <input type="text" placeholder="Name" id="username" name="username"/>
-            <input type="email" placeholder="Email" id="email" name="email"/>
-            <input type="password" placeholder="Password" id="password" name="password"/>
-            <button>Sign Up</button>
+        <form th:action="@{/register}" th:method="POST" th:object="${user}">
+            <h1>Создать аккаунт</h1>
+            <input type="text" placeholder="Имя пользователя" id="username" name="username" th:field="*{username}"/>
+            <input type="email" placeholder="Email" id="email" name="email" th:field="*{email}"/>
+            <input type="password" placeholder="Пароль" id="password" name="password" th:field="*{password}"/>
+            <button>Зарегистрироваться</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
         <form action="/" method="post">
-            <h1>Sign in</h1>
-            <label>Username:</label>
-            <input type="text" placeholder="Username" name="username" required/>
-            <input type="password" placeholder="Password" name="password" required/>
-            <a href="#">Forgot your password?</a>
-            <button>Sign In</button>
+            <h1>Войти</h1>
+            <label>Имя пользователя:</label>
+            <input type="text" placeholder="Имя пользователя" name="username" required/>
+            <input type="password" placeholder="Пароль" name="password" required/>
+            <button>Войти</button>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost" id="signIn">Sign In</button>
+                <h1>Добро пожаловать!</h1>
+                <p>Чтобы оставаться на связи с нами, пожалуйста, войдите, используя свои личные данные.</p>
+                <button class="ghost" id="signIn">Войти</button>
             </div>
             <div class="overlay-panel overlay-right">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" id="signUp">Sign Up</button>
+                <h1>Привет, друг!</h1>
+                <p>Введите свои личные данные и начните путешествие вместе с нами</p>
+                <button class="ghost" id="signUp">Зарегистрироваться</button>
             </div>
         </div>
     </div>

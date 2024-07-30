@@ -6,7 +6,7 @@
     <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
 </head>
 <body>
-<form th:method="POST" th:action="@{/profile}" th:object="${block}">
+<form th:method="POST" th:action="@{/profile/create}" th:object="${block}">
     <label for="manufacturer">Производитель: </label>
     <input id="manufacturer" type="text" th:field="*{manufacturer}">
     <div style="color:red" th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}">manufacturer error</div>
