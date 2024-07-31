@@ -33,19 +33,17 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") @Valid UserBlockchain user, Model model,
-                           BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+    public String register(@ModelAttribute("user") @Valid UserBlockchain user,
+                           BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("container_class", "container right-panel-active");
             return "login/login";
+        }
 
-        //model.addAttribute("container_class", "container right-panel-active");
         try {
             HttpStatusCode response = Register.register(user);
             if (response == HttpStatus.CREATED){
                 return "login/success-registration";
-            } else if (response == HttpStatus.BAD_REQUEST) {
-                String error = "Такой пользователь уже существует " + response;
-                model.addAttribute("error", error);
             } else {
                 String error = "Во время регистрации произошла ошибка " + response;
                 model.addAttribute("error", error);

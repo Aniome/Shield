@@ -5,7 +5,6 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.shield.entities.UserBlockchain;
 import org.shield.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 public class UserValidator implements ConstraintValidator<ValidateUsername, String> {

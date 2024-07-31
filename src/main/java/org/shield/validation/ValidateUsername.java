@@ -11,7 +11,7 @@ import jakarta.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UserValidator.class)
 public @interface ValidateUsername {
-    String message() default "Поле не соответствует требованиям";
+    String message() default "Такой пользователь уже существует";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

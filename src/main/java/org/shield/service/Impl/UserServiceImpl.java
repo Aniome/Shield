@@ -8,8 +8,6 @@ import org.shield.service.interfaces.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -19,16 +17,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean saveUser(UserBlockchain user) {
         user.setRole("USER");
-        List<UserBlockchain> listExistingUser =
-                userRepository.findByUsernameAndAndRole(user.getUsername(), user.getRole());
-        if (listExistingUser.isEmpty()){
+        try {
             GenerateId<UserBlockchain> generateId = new GenerateId<>();
             Long id = generateId.getId(userRepository);
             user.setId(id);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return true;
+        } catch (Exception e){
+            return false;
         }
-        return false;
     }
 }

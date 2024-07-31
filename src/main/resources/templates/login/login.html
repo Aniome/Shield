@@ -13,9 +13,10 @@
     <div class="form-container sign-up-container">
         <form th:action="@{/register}" th:method="POST" th:object="${user}">
             <h1>Создать аккаунт</h1>
-            <input type="text" placeholder="Имя пользователя" id="username" name="username" th:field="*{username}"/>
-            <input type="email" placeholder="Email" id="email" name="email" th:field="*{email}"/>
-            <input type="password" placeholder="Пароль" id="password" name="password" th:field="*{password}"/>
+            <input id="username" placeholder="Имя пользователя" required th:field="*{username}" type="text"/>
+            <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username error</div>
+            <input type="email" placeholder="Email" id="email" th:field="*{email}" required/>
+            <input type="password" placeholder="Пароль" id="password" th:field="*{password}" required/>
             <button>Зарегистрироваться</button>
         </form>
     </div>
@@ -26,6 +27,7 @@
             <input type="text" placeholder="Имя пользователя" name="username" required/>
             <input type="password" placeholder="Пароль" name="password" required/>
             <button>Войти</button>
+            <a href="/register" methods="GET">Регистрация</a>
         </form>
     </div>
     <div class="overlay-container">

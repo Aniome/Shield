@@ -34,7 +34,7 @@ public class RESTController {
             if (userService.saveUser(user)){
                 return ResponseEntity.status(HttpStatus.CREATED).body("user saved");
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user not saved");
