@@ -11,10 +11,18 @@ public class UserValidator implements ConstraintValidator<ValidateUsername, Stri
     @Autowired
     private UserRepository userRepository;
 
+    private static List<UserBlockchain> listExistingUser;
+
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        List<UserBlockchain> listExistingUser =
-                userRepository.findByUsernameAndAndRole(value, "USER");
+        // Вернуть true, если значение валидно, false в противном случае
+        if (listExistingUser == null) {
+            listExistingUser = userRepository.findByUsernameAndAndRole(value, "USER");
+        } else {
+            boolean valid = listExistingUser.isEmpty();
+            listExistingUser = null;
+            return valid;
+        }
         return listExistingUser.isEmpty();
     }
 }

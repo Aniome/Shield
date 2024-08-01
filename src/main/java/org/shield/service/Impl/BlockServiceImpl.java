@@ -24,8 +24,8 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public void addBlock(Block block) {
-        GenerateId<Block> generateId = new GenerateId<>();
-        Long i = generateId.getId(blockRepository);
+        List<Long> listId = blockRepository.findAllId();
+        Long i = GenerateId.getId(listId);
         block.setId(i);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         block.setTimestamp(timestamp.getTime());
