@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 92 92">
+    <defs>
+        <style>.cls-1,.cls-3{fill:#fff;}.cls-1{opacity:0.1;}.cls-2{opacity:0.75;}.
+            cls-4{fill:#cedcf0;}.cls-5{fill:#efefef;}
+        </style>
+    </defs>
+    <title>moon_1</title>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <g id="moon">
+                <circle class="cls-1" cx="46.05" cy="46.27" r="20.73"
+                                 transform="translate(-0.52 0.52) rotate(-0.64)"/>
+                <image class="cls-2" width="92" height="92"
+                       xlink:href="../../img/404/moon.png"/>
+
+            </g>
+        </g>
+    </g>
+</svg>
