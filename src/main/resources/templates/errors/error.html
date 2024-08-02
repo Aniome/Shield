@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
+    <title>Ошибка</title>
     <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" th:href="@{/error/error.css}">
 </head>
@@ -12,12 +12,11 @@
     <h1 class="neg title">
         <span class="bg" th:text="${error}"></span>
     </h1>
-    <p>An error has occured, to continue:</p>
-    <p>* Return to our homepage.<br/>
-        * Send us an e-mail about this error and try later.</p>
+    <p>Произошла ошибка, чтобы продолжить: </p>
+    <p>*  Вернуться на домашнюю страницу. <br/> </p>
     <nav class="nav">
-        <a href="/profile" class="link">Go to profile</a>&nbsp;|&nbsp;
-        <a href="/" class="link">GO BACK HOME</a>
+        <a href="/profile" class="link">Перейти к профилю</a>&nbsp;|&nbsp;
+        <a href="/" class="link">Перейти на домашную страницу</a>
     </nav>
 </main>
 </body>
