@@ -30,8 +30,8 @@ body {
     margin: 0 auto;
     padding: 1em 1em;
     text-align: center;
-    background: url("https://www.dropbox.com/s/xq0841cp3icnuqd/flame.png?raw=1") no-repeat top 10em center/128px 128px,
-    transparent url("https://www.dropbox.com/s/w7qqrcvhlx3pwnf/desktop-pc.png?raw=1") no-repeat top 13em center/128px 128px;
+    background: url("../img/500/flame.png") no-repeat top 10em center/128px 128px,
+    transparent url("../img/500/desktop-pc.png") no-repeat top 13em center/128px 128px;
 }
 
 h1, p:not(:last-of-type) { text-shadow: 0 0 6px #216f79; }
