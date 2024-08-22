@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public boolean saveUser(UserBlockchain user) {
+    public String saveUser(UserBlockchain user) {
         user.setRole("USER");
         List<Long> listId = userRepository.findAllId();
         try {
@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
             user.setId(id);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
-            return true;
+            return "User saved";
         } catch (Exception e){
-            return false;
+            return e.getMessage();
         }
     }
 }
