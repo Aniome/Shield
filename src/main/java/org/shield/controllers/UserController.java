@@ -48,6 +48,6 @@ public class UserController {
 
     @GetMapping("change-password")
     public String changePassword() {
-        return "changePassword";
+        return "change-password";
     }
 }

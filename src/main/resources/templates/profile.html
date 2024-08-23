@@ -12,24 +12,20 @@
         <h1 th:text="'Имя пользователя: ' + ${#authentication.getPrincipal().username}"></h1>
         <p class="title" th:text="'Email: ' + ${#authentication.getPrincipal().email}"></p>
         <p>
-            <button>
+            <button onclick="document.location='/profile/create'">
                 Создать блок
-                <a href="/profile/create"></a>
             </button>
-            <button>
+            <button onclick="document.location='/profile/chain'">
                 Посмотреть цепочку блоков
-                <a href="/profile/chain"></a>
             </button>
             <button>
                 Изменить фото
             </button>
-            <button>
+            <button onclick="document.location='/profile/change-password'">
                 Изменить пароль
-                <a ></a>
             </button>
-            <button>
+            <button onclick="document.location='/logout'">
                 Выйти
-                <a href="/logout"></a>
             </button>
         </p>
     </div>
