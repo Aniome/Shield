@@ -38,7 +38,8 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .formLogin(form -> form.loginPage("/").permitAll()
-                        .successHandler(new AuthenticationSuccessHandler()));
+                        .successHandler(new AuthenticationSuccessHandler())
+                );
         return http.build();
     }
 

@@ -1,15 +1,37 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Профиль</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
 </head>
 <body>
-    <a href="/profile/create">Создать блок</a>
-    <br>
-    <a href="/profile/chain">Посмотреть цепочку блоков</a>
-    <br>
-    <a href="/logout">Выйти</a>
+    <div class="card">
+        <img src="/img/unknown_person.jpg" alt="username" style="width:100%">
+        <h1 th:text="'Имя пользователя: ' + ${#authentication.getPrincipal().username}"></h1>
+        <p class="title" th:text="'Email: ' + ${#authentication.getPrincipal().email}"></p>
+        <p>
+            <button>
+                Создать блок
+                <a href="/profile/create"></a>
+            </button>
+            <button>
+                Посмотреть цепочку блоков
+                <a href="/profile/chain"></a>
+            </button>
+            <button>
+                Изменить фото
+            </button>
+            <button>
+                Изменить пароль
+                <a ></a>
+            </button>
+            <button>
+                Выйти
+                <a href="/logout"></a>
+            </button>
+        </p>
+    </div>
 </body>
 </html>

@@ -4,10 +4,13 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.shield.entities.Block;
 import org.shield.service.Impl.BlockServiceImpl;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @AllArgsConstructor
@@ -36,10 +39,15 @@ public class UserController {
 
     @PostMapping("/create")
     public String Create(@ModelAttribute("block") @Valid Block block,
-                         BindingResult bindingResult){
+                         BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "create";
         blockServiceImpl.addBlock(block);
         return "redirect:/profile";
+    }
+
+    @GetMapping("change-password")
+    public String changePassword() {
+        return "changePassword";
     }
 }

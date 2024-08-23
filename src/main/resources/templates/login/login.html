@@ -27,6 +27,7 @@
             <label>Имя пользователя:</label>
             <input type="text" placeholder="Имя пользователя" name="username" required/>
             <input type="password" placeholder="Пароль" name="password" required/>
+            <div style="color: red;" th:if="${param.error}">Неверное имя пользователя или пароль</div>
             <button>Войти</button>
             <a href="/register" methods="GET">Регистрация</a>
         </form>
