@@ -1,4 +1,4 @@
-package org.shield.controllers;
+package org.shield.exception;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;

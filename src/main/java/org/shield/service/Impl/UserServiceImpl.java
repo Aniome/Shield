@@ -7,8 +7,10 @@ import org.shield.service.GenerateId;
 import org.shield.service.interfaces.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,8 +28,23 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return "User saved";
-        } catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+    @Transactional
+    public boolean updatePassword(String username, String password) {
+        userRepository.updateByUsernameAndAndPassword(username, passwordEncoder.encode(password));
+        return true;
+//        Optional<UserBlockchain> user = userRepository.findByUsername(username);
+//        if (user.isPresent()) {
+//            UserBlockchain userBlockchain = user.get();
+//            userBlockchain.setPassword(passwordEncoder.encode(password));
+//            userBlockchain.setPassword("passwordEncoder.encode(password)");
+//            userRepository.save(userBlockchain);
+//            return true;
+//        }
+//        return false;
     }
 }

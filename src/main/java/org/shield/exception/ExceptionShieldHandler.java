@@ -1,4 +1,4 @@
-package org.shield.config;
+package org.shield.exception;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
