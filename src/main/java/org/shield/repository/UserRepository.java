@@ -14,6 +14,4 @@ public interface UserRepository extends JpaRepository<UserBlockchain, Long> {
     List<UserBlockchain> findByUsernameAndAndRole(@NotEmpty String username, String role);
     @Query(value = "SELECT id FROM UserBlockchain")
     List<Long> findAllId();
-    @Query(value = "UPDATE UserBlockchain SET password=UserBlockchain.password WHERE UserBlockchain.username=username")
-    boolean updateByUsernameAndAndPassword(@NotEmpty String username, @NotEmpty String password);
 }

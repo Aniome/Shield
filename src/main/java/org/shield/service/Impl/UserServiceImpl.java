@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -34,17 +34,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    @Override
     public boolean updatePassword(String username, String password) {
-        userRepository.updateByUsernameAndAndPassword(username, passwordEncoder.encode(password));
-        return true;
-//        Optional<UserBlockchain> user = userRepository.findByUsername(username);
-//        if (user.isPresent()) {
-//            UserBlockchain userBlockchain = user.get();
-//            userBlockchain.setPassword(passwordEncoder.encode(password));
-//            userBlockchain.setPassword("passwordEncoder.encode(password)");
-//            userRepository.save(userBlockchain);
-//            return true;
-//        }
-//        return false;
+        Optional<UserBlockchain> user = userRepository.findByUsername(username);
+        try {
+            if (user.isPresent()) {
+                UserBlockchain userBlockchain = user.get();
+                userBlockchain.setEmail("t@test.com");
+                //userBlockchain.setPassword(passwordEncoder.encode(password));
+                //userBlockchain.setPassword("passwordEncoder.encode(password)");
+                //userRepository.saveAndFlush(userBlockchain);
+                userRepository.save(userBlockchain);
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }

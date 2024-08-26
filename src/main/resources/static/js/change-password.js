@@ -34,5 +34,4 @@ function validateSignupForm() {
     if (!validatePassword()) {
         return false;
     }
-    document.location = '/profile';
 }

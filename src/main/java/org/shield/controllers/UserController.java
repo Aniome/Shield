@@ -55,7 +55,7 @@ public class UserController {
         return "change-password";
     }
 
-    @PostMapping("/change-password")
+    @PatchMapping("/change-password")
     public String changePassword(@ModelAttribute("password") String password, Principal principal) {
         if (userServiceImpl.updatePassword(principal.getName(), password)){
             return "redirect:/profile";
