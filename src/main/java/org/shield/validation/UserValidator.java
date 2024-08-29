@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class UserValidator implements ConstraintValidator<ValidateUsername, String> {
-    @Autowired
+
     private UserRepository userRepository;
 
     private static List<UserBlockchain> listExistingUser;

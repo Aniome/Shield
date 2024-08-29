@@ -25,6 +25,7 @@ public class UserController {
 
     @GetMapping()
     public String profile() {
+        //userServiceImpl.testDB();
         return "profile";
     }
 

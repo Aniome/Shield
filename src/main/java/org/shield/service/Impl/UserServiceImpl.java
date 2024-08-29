@@ -7,6 +7,7 @@ import org.shield.service.GenerateId;
 import org.shield.service.interfaces.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -33,7 +34,18 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Transactional
+
+    public void testDB() {
+        System.out.println("Before patch");
+        Optional<UserBlockchain> userBlockchain = userRepository.findById(1L);
+        userBlockchain.ifPresent(user -> {
+           user.setEmail("t@test.com");
+           userRepository.saveAndFlush(user);
+        });
+        System.out.println("After patch");
+    }
+
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
     @Override
     public boolean updatePassword(String username, String password) {
         Optional<UserBlockchain> user = userRepository.findByUsername(username);
@@ -44,7 +56,8 @@ public class UserServiceImpl implements UserService {
                 //userBlockchain.setPassword(passwordEncoder.encode(password));
                 //userBlockchain.setPassword("passwordEncoder.encode(password)");
                 //userRepository.saveAndFlush(userBlockchain);
-                userRepository.save(userBlockchain);
+                //userRepository.save(userBlockchain);
+                userRepository.saveAndFlush(userBlockchain);
                 return true;
             }
         } catch (Exception e) {

@@ -1,11 +1,15 @@
 package org.shield.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -37,9 +41,10 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/"))
-                .formLogin(form -> form.loginPage("/").permitAll()
-                        .successHandler(new AuthenticationSuccessHandler())
-                );
+                //.formLogin(form -> form.loginPage("/").permitAll()
+                                //.defaultSuccessUrl("/profile", false)
+                        //.successHandler(new AuthenticationSuccessHandler()))
+        ;
         return http.build();
     }
 
