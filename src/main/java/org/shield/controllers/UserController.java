@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import org.shield.entities.Block;
 import org.shield.service.Impl.BlockServiceImpl;
 import org.shield.service.Impl.UserServiceImpl;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,6 +57,7 @@ public class UserController {
     @PatchMapping("/change-password")
     public String changePassword(@ModelAttribute("password") String password, Principal principal) {
         if (userServiceImpl.updatePassword(principal.getName(), password)){
+            System.out.println("password updated");
             return "redirect:/profile";
         }
         return "redirect:/profile/chain";

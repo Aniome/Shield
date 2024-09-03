@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.shield.validation.ValidateUsername;
 
 @NoArgsConstructor
 @Getter
@@ -17,7 +16,6 @@ import org.shield.validation.ValidateUsername;
 public class UserBlockchain {
     @Id
     private Long id;
-    //@ValidateUsername
     @Size(min = 6, max = 255, message="Имя пользователя должно содержать от 6 до 255 символов")
     private String username;
     @Size(min = 6, max = 255, message="Пароль должно содержать от 6 до 255 символов")
