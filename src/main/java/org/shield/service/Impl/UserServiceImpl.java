@@ -51,4 +51,9 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    public boolean checkUsername(String username) {
+        Optional<UserBlockchain> user = userRepository.findByUsername(username);
+        return user.isPresent();
+    }
 }
