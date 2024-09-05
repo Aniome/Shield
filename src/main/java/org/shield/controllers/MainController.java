@@ -32,8 +32,8 @@ public class MainController {
             else
                 return "redirect:/profile";
         }
-//        //class="container"
-//        //right-panel-active
+        //class="container"
+        //right-panel-active
         model.addAttribute("container_class", "container");
         model.addAttribute("user", new UserBlockchain());
         return "login/login";

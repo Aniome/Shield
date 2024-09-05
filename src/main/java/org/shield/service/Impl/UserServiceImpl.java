@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    public boolean verifyPassword(String username, String password) {
+        Optional<UserBlockchain> user = userRepository.findByUsername(username);
+        return user.filter(userBlockchain -> passwordEncoder.matches(password, userBlockchain.getPassword())).isPresent();
+    }
+
     public boolean checkUsername(String username) {
         Optional<UserBlockchain> user = userRepository.findByUsername(username);
         return user.isPresent();
