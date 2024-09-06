@@ -50,13 +50,15 @@ public class UserController {
     }
 
     @GetMapping("/change-password")
-    public String changePassword(@ModelAttribute("password") UpdatePassword password) {
+    public String changePassword(@ModelAttribute("password") UpdatePassword password, Model model) {
+        model.addAttribute("message", "");
+        model.addAttribute("popup","overlay-hidden");
         return "change-password";
     }
 
     @PatchMapping("/change-password")
     public String changePassword(@ModelAttribute("password") @Valid UpdatePassword password,
-                                 BindingResult bindingResult, Principal principal) {
+                                 BindingResult bindingResult, Principal principal, Model model) {
         boolean passwordIsValid = userServiceImpl
                 .verifyPassword(principal.getName(), password.getOldPassword());
         if (!passwordIsValid) {
@@ -72,10 +74,12 @@ public class UserController {
         }
 
         if (userServiceImpl.updatePassword(principal.getName(), password.getNewPassword())){
-            System.out.println("password updated");
-            return "redirect:/profile";
+            model.addAttribute("message", "Пароль был успешно изменен");
+            model.addAttribute("popup","overlay");
+            return "change-password";
         }
-        return "redirect:/profile/chain";
+        model.addAttribute("message", "Пароль не удалось изменить");
+        return "change-password";
     }
 
     private void createFieldError(BindingResult bindingResult, String field, String message) {
