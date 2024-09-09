@@ -11,7 +11,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,7 +33,7 @@ public class BlockServiceImpl implements BlockService {
         if (i == 0){
             block.setPreviousHash(0L);
         } else {
-            Block prevBlock = blockRepository.getReferenceById(i - 1);;
+            Block prevBlock = blockRepository.findById(i - 1);
             block.setPreviousHash(prevBlock.getPreviousHash());
             lastProof = block.getProof();
         }
