@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание блока</title>
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/create.css}">
+</head>
+<body>
+<div class="mainDiv">
+    <div class="cardStyle">
+        <form th:method="POST" th:action="@{/profile/create}" th:object="${block}">
+            <div class="inputDiv">
+                <label class="inputLabel" for="manufacturer">Производитель: </label>
+                <input id="manufacturer" type="text" th:field="*{manufacturer}">
+                <div style="color:red" th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}">manufacturer error</div>
+            </div>
+            <div class="inputDiv">
+                <label class="inputLabel" for="nameOfProduct">Имя товара: </label>
+                <input id="nameOfProduct" type="text" th:field="*{nameOfProduct}">
+                <div style="color:red" th:if="${#fields.hasErrors('nameOfProduct')}" th:errors="*{nameOfProduct}">nameOfProduct error</div>
+            </div>
+            <div class="inputDiv">
+                <label class="inputLabel" for="dateOfManufacture">Дата создания</label>
+                <input type="date" id="dateOfManufacture" th:field="*{dateOfManufacture}">
+                <div style="color:red" th:if="${#fields.hasErrors('dateOfManufacture')}" th:errors="*{dateOfManufacture}">dateOfManufacture error</div>
+            </div>
+            <div class="inputDiv">
+                <label class="inputLabel" for="productDescription">Описание продукта</label>
+                <input id="productDescription" th:field="*{productDescription}">
+                <div style="color:red" th:if="${#fields.hasErrors('productDescription')}" th:errors="*{productDescription}">productDescription error</div>
+            </div>
+            <div class="buttonWrapper">
+                <button type="submit" id="submitButton" class="submitButton">
+                    <span>Создать</span>
+                </button>
+            </div>
+        </form>
+        <div class="buttonWrapper">
+            <button type="submit" class="submitButton" onclick="document.location='/profile'">
+                <span>Назад</span>
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

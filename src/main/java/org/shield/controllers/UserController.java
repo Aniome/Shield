@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping()
     public String profile() {
-        return "profile";
+        return "profile/profile";
     }
 
     @ResponseBody
@@ -37,14 +37,14 @@ public class UserController {
     @GetMapping("/create")
     public String mine(Model model) {
         model.addAttribute("block", new Block());
-        return "create";
+        return "profile/create";
     }
 
     @PostMapping("/create")
     public String Create(@ModelAttribute("block") @Valid Block block,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "create";
+            return "profile/create";
         blockServiceImpl.addBlock(block);
         return "redirect:/profile";
     }
@@ -53,7 +53,7 @@ public class UserController {
     public String changePassword(@ModelAttribute("password") UpdatePassword password, Model model) {
         model.addAttribute("message", "");
         model.addAttribute("popup","overlay-hidden");
-        return "change-password";
+        return "profile/change-password";
     }
 
     @PatchMapping("/change-password")
@@ -70,16 +70,16 @@ public class UserController {
             createFieldError(bindingResult, "confirmPassword", "Пароли не совпадают");
         }
         if (bindingResult.hasErrors()){
-            return "change-password";
+            return "profile/change-password";
         }
 
         if (userServiceImpl.updatePassword(principal.getName(), password.getNewPassword())){
             model.addAttribute("message", "Пароль был успешно изменен");
             model.addAttribute("popup","overlay");
-            return "change-password";
+            return "profile/change-password";
         }
         model.addAttribute("message", "Пароль не удалось изменить");
-        return "change-password";
+        return "profile/change-password";
     }
 
     private void createFieldError(BindingResult bindingResult, String field, String message) {
