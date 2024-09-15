@@ -28,10 +28,12 @@ public class UserController {
         return "profile/profile";
     }
 
-    @ResponseBody
+    //@ResponseBody
     @GetMapping("/chain")
-    public List<Block> showBlockChain() {
-        return restController.getChain();
+    public String showBlockChain(Model model) {
+        List<Block> blockList = restController.getChain();
+        model.addAttribute("blockList", blockList);
+        return "profile/show";
     }
 
     @GetMapping("/create")

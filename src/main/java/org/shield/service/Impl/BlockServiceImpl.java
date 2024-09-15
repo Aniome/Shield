@@ -24,16 +24,21 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public void addBlock(Block block) {
-        List<Long> listId = blockRepository.findAllId();
+        List<Long> listId = blockRepository.findAllId().stream().map(id -> {
+            int length = id.length();
+            final int idIndex = 8;
+            return Long.parseLong(id.substring(idIndex, length - 1));
+        }).toList();
         Long i = GenerateId.getId(listId);
-        block.setId(i);
+        block.setId(i.toString());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         block.setTimestamp(timestamp.getTime());
         Long lastProof = 0L;
         if (i == 0){
             block.setPreviousHash(0L);
         } else {
-            Block prevBlock = blockRepository.findById(i - 1);
+            long id = i - 1;
+            Block prevBlock = blockRepository.findAllById(Long.toString(id));
             block.setPreviousHash(prevBlock.getPreviousHash());
             lastProof = block.getProof();
         }

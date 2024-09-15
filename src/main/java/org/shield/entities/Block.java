@@ -17,7 +17,7 @@ import java.util.Date;
 @Document("chain")
 public class Block {
     @Id
-    private Long id;
+    String id;
 
     Long timestamp;
 

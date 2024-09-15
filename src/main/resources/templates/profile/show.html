@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Цепочка</title>
+</head>
+<body>
+<div th:each="block : ${blockList}">
+  <div th:text="${block.getId()}"></div>
+  <div th:text="${block.getTimestamp}"></div>
+  <div th:text="${block.getDateOfManufacture()}"></div>
+  <div th:text="${block.getProof()}"></div>
+  <div th:text="${block.getManufacturer()}"></div>
+  <div th:text="${block.getNameOfProduct()}"></div>
+  <div th:text="${block.getPreviousHash()}"></div>
+  <div th:text="${block.getProductDescription()}"></div>
+</div>
+</body>
+</html>
