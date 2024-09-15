@@ -27,10 +27,11 @@ public class BlockServiceImpl implements BlockService {
         List<Long> listId = blockRepository.findAllId().stream().map(id -> {
             int length = id.length();
             final int idIndex = 8;
-            return Long.parseLong(id.substring(idIndex, length - 1));
+            String idSubstring = id.substring(idIndex, length - 1);
+            return Long.parseLong(idSubstring);
         }).toList();
         Long i = GenerateId.getId(listId);
-        block.setId(i.toString());
+        block.setId(i);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         block.setTimestamp(timestamp.getTime());
         Long lastProof = 0L;
@@ -38,7 +39,7 @@ public class BlockServiceImpl implements BlockService {
             block.setPreviousHash(0L);
         } else {
             long id = i - 1;
-            Block prevBlock = blockRepository.findAllById(Long.toString(id));
+            Block prevBlock = blockRepository.findAllById(id);
             block.setPreviousHash(prevBlock.getPreviousHash());
             lastProof = block.getProof();
         }

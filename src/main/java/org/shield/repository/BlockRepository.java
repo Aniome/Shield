@@ -10,5 +10,5 @@ import java.util.List;
 public interface BlockRepository extends MongoRepository<Block, String> {
     @Query(value = "{}", fields = "{'_id': 1 }")
     List<String> findAllId();
-    Block findAllById(String id);
+    Block findAllById(Long id);
 }
