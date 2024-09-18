@@ -38,9 +38,8 @@ public class BlockServiceImpl implements BlockService {
         if (i == 0){
             block.setPreviousHash(0L);
         } else {
-            long id = i - 1;
-            Block prevBlock = blockRepository.findAllById(id);
-            block.setPreviousHash(prevBlock.getPreviousHash());
+            Block prevBlock = blockRepository.findAllById(i - 1);
+            block.setPreviousHash(prevBlock.getProof());
             lastProof = block.getProof();
         }
         block.setProof(proofOfWork(lastProof));

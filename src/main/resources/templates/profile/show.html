@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Цепочка</title>
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/show.css}">
 </head>
 <body>
-<div th:each="block : ${blockList}">
-  <div th:text="${block.getId()}"></div>
-  <div th:text="${block.getTimestamp}"></div>
-  <div th:text="${block.getDateOfManufacture()}"></div>
-  <div th:text="${block.getProof()}"></div>
-  <div th:text="${block.getManufacturer()}"></div>
-  <div th:text="${block.getNameOfProduct()}"></div>
-  <div th:text="${block.getPreviousHash()}"></div>
-  <div th:text="${block.getProductDescription()}"></div>
+<div class="mainDiv">
+    <div th:each="block : ${blockList}" class="cardStyle">
+        <div th:text="'id: ' + ${block.getId()}" class="textBlock"></div>
+        <div th:text="'Временная метка: ' + ${block.getTimestamp}" class="textBlock"></div>
+        <div th:text="'Дата производства: ' + ${block.getDateOfManufacture()}" class="textBlock"></div>
+        <div th:text="'Доказательство работы: ' + ${block.getProof()}" class="textBlock"></div>
+        <div th:text="'Производитель: ' + ${block.getManufacturer()}" class="textBlock"></div>
+        <div th:text="'Имя товара: ' + ${block.getNameOfProduct()}" class="textBlock"></div>
+        <div th:text="'Хэш предыдущего блока: ' + ${block.getPreviousHash()}" class="textBlock"></div>
+        <div th:text="'Описание товара: ' + ${block.getProductDescription()}" class="lastBlock"></div>
+    </div>
 </div>
 </body>
 </html>
