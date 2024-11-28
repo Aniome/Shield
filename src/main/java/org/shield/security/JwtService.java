@@ -12,7 +12,6 @@ import javax.crypto.SecretKey;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Component

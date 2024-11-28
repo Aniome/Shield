@@ -2,20 +2,24 @@ package org.shield.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
+import org.shield.dto.JwtAuthenticationDto;
+import org.shield.dto.RefreshTokenDto;
+import org.shield.dto.UserCredentialsDto;
 import org.shield.entities.UserBlockchain;
 import org.shield.service.Impl.UserServiceImpl;
 import org.shield.service.Register;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.naming.AuthenticationException;
 
 @Controller
 public class MainController {
@@ -26,7 +30,8 @@ public class MainController {
     public String login(Authentication authentication, Model model) {
         if (authentication != null){
             boolean isAdmin = authentication.getAuthorities().stream()
-                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority()
+                            .equals("ROLE_ADMIN"));
             if (isAdmin)
                 return "redirect:/admin";
             else
@@ -39,16 +44,23 @@ public class MainController {
         return "login/login";
     }
 
-//    @CrossOrigin
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody UserBlockchain userBlockchain) {
-//        Optional<UserBlockchain> user = userRepository.findByUsername(userBlockchain.getUsername());
-//        if (user.isPresent()) {
-//            return ResponseEntity.status(HttpStatus.OK).body("user log in");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User does not exist");
-//        }
-//    }
+    @CrossOrigin
+    @PostMapping("/login")
+    public String login(UserCredentialsDto userCredentialsDto, Model model) {
+        try {
+            JwtAuthenticationDto jwtAuthenticationDto = userService.singIn(userCredentialsDto);
+            //return ResponseEntity.ok(jwtAuthenticationDto.getToken());
+            return "redirect:/";
+        } catch (AuthenticationException e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/error";
+        }
+    }
+
+    @PostMapping("/refresh")
+    public JwtAuthenticationDto refresh(@RequestBody RefreshTokenDto refreshTokenDto) throws Exception {
+        return userService.refreshToken(refreshTokenDto);
+    }
 
     @PostMapping("/register")
     public String register(@ModelAttribute("user") @Valid UserBlockchain user,

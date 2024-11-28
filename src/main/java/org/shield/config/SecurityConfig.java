@@ -1,17 +1,22 @@
 package org.shield.config;
 
+import lombok.RequiredArgsConstructor;
+import org.shield.security.JwtFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -20,7 +25,10 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/mine").hasRole("USER")
                         .requestMatchers("/api/chain").hasRole("USER")
                         .requestMatchers("/register").permitAll()
+                        .requestMatchers("/refresh").permitAll()
                         //service endpoints
                         .requestMatchers("**.js").permitAll()
                         .requestMatchers("**.css").permitAll()
@@ -44,7 +53,9 @@ public class SecurityConfig {
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .formLogin(form -> form.loginPage("/").permitAll()
                         .successHandler(new AuthenticationSuccessHandler()))
-        ;
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

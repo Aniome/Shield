@@ -17,7 +17,7 @@ public class ShieldUserDetailService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserBlockchainUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserBlockchain> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             UserBlockchain userObj = user.get();
