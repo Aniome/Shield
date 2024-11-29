@@ -1,6 +1,8 @@
 package org.shield.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.shield.dto.JwtAuthenticationDto;
 import org.shield.dto.RefreshTokenDto;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.Cookie;
 
 import javax.naming.AuthenticationException;
 
@@ -46,14 +49,45 @@ public class MainController {
 
     @CrossOrigin
     @PostMapping("/login")
-    public String login(UserCredentialsDto userCredentialsDto, Model model) {
+    public String singIn(UserCredentialsDto userCredentialsDto,
+                                                       HttpServletResponse response, HttpServletRequest request) {
         try {
+            Cookie[] cookies = request.getCookies();
+
+            String jwtToken = null, jwtRefreshToken = null;
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("JWT_TOKEN")) {
+                    jwtToken = cookie.getValue();
+                }
+                if (cookie.getName().equals("JWT_TOKEN_RefreshToken")) {
+                    jwtRefreshToken = cookie.getValue();
+                }
+            }
+
+            if (jwtToken != null && jwtRefreshToken!= null) {
+
+                return "redirect:/profile";
+            }
+
             JwtAuthenticationDto jwtAuthenticationDto = userService.singIn(userCredentialsDto);
-            //return ResponseEntity.ok(jwtAuthenticationDto.getToken());
-            return "redirect:/";
+
+            Cookie cookie = new Cookie("JWT_TOKEN", jwtAuthenticationDto.getToken());
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(10 * 60 * 60); // 10 часов
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
+            Cookie cookie1 = new Cookie("JWT_TOKEN_RefreshToken", jwtAuthenticationDto.getRefreshToken());
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(10 * 60 * 60); // 10 часов
+            cookie.setPath("/");
+            response.addCookie(cookie1);
+
+            //return ResponseEntity.ok(jwtAuthenticationDto);
+            return "redirect:/profile";
         } catch (AuthenticationException e) {
-            model.addAttribute("error", e.getMessage());
-            return "redirect:/error";
+            //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return "redirect:/";
         }
     }
 

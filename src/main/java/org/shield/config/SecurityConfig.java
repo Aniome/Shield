@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/chain").hasRole("USER")
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/refresh").permitAll()
+                        .requestMatchers("/login").permitAll()
                         //service endpoints
                         .requestMatchers("**.js").permitAll()
                         .requestMatchers("**.css").permitAll()
