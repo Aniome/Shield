@@ -49,42 +49,13 @@ public class MainController {
 
     @CrossOrigin
     @PostMapping("/login")
-    public String singIn(UserCredentialsDto userCredentialsDto,
-                                                       HttpServletResponse response, HttpServletRequest request) {
+    public String singIn(UserCredentialsDto userCredentialsDto, Model model) {
         try {
-            Cookie[] cookies = request.getCookies();
-
-            String jwtToken = null, jwtRefreshToken = null;
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("JWT_TOKEN")) {
-                    jwtToken = cookie.getValue();
-                }
-                if (cookie.getName().equals("JWT_TOKEN_RefreshToken")) {
-                    jwtRefreshToken = cookie.getValue();
-                }
-            }
-
-            if (jwtToken != null && jwtRefreshToken!= null) {
-
-                return "redirect:/profile";
-            }
-
             JwtAuthenticationDto jwtAuthenticationDto = userService.singIn(userCredentialsDto);
-
-            Cookie cookie = new Cookie("JWT_TOKEN", jwtAuthenticationDto.getToken());
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(10 * 60 * 60); // 10 часов
-            cookie.setPath("/");
-            response.addCookie(cookie);
-
-            Cookie cookie1 = new Cookie("JWT_TOKEN_RefreshToken", jwtAuthenticationDto.getRefreshToken());
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(10 * 60 * 60); // 10 часов
-            cookie.setPath("/");
-            response.addCookie(cookie1);
-
+            model.addAttribute("jwtToken", jwtAuthenticationDto.getToken());
+            model.addAttribute("jwtRefreshToken", jwtAuthenticationDto.getRefreshToken());
             //return ResponseEntity.ok(jwtAuthenticationDto);
-            return "redirect:/profile";
+            return "redirect:/";
         } catch (AuthenticationException e) {
             //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
             return "redirect:/";

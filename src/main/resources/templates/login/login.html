@@ -7,11 +7,34 @@
     <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
     <script th:src="@{/js/login.js}"></script>
+    <script> function sendFormWithHeaders(event) {
+        event.preventDefault();
+        // Остановить стандартное поведение формы
+        const form = document.getElementById('myForm');
+        const formData = new FormData(form);
+        // Преобразование данных формы в объект
+        const data = {};
+        formData.forEach((value, key) => { data[key] = value; });
+        // Отправка POST-запроса с заголовками
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer your_token'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => console.log('Успех:', data))
+        .catch(error => console.error('Ошибка:', error));
+    }
+    </script>
 </head>
 <body>
 <div id="container" th:class="${container_class}">
     <div class="form-container sign-up-container">
-        <form th:action="@{/register}" th:method="POST" th:object="${user}">
+        <form th:action="@{/register}" th:method="POST" th:object="${user}"
+              onsubmit="sendFormWithHeaders(this);">
             <h1>Создать аккаунт</h1>
             <input type="text" placeholder="Имя пользователя" id="username" th:field="*{username}" required/>
             <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
